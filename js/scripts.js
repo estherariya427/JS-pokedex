@@ -30,9 +30,29 @@ var pokemonRepository = (function () {
     return repository
   }
 
+  function addListItem(pokemon) {
+    var $element = document.querySelector('.pokemon-list');
+    var $listItems = document.createElement('li');
+    var $button = document.createElement('button');
+    $button.innerText = pokemon.name;
+    $button.classList.add('buttonStyle');
+    $element.appendChild($listItems);
+    $listItems.appendChild($button);
+    $button.addEventListener('click', function(event) {
+      showDetails(pokemon);
+    });
+  }
+
+  function showDetails(pokemon) {
+
+    console.log(pokemon);
+  }
+
   return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    addListItem: addListItem,
+    showDetails: showDetails
   };
 })();
 
@@ -48,14 +68,13 @@ var pokemonRepository = (function () {
 } */
 
 // Adding new pokemon
-pokemonRepository.add(8);
-pokemonRepository.add('Hello World');
-pokemonRepository.add({ name: 'Charmander', height: 6, type: ['fire']});
+//  pokemonRepository.add(8);
+//  pokemonRepository.add('Hello World');
+//  pokemonRepository.add({ name: 'Charmander', height: 6, type: ['fire']});
+
+
 
 // Using forEach function to loop over Pokemon in the repository array
-pokemonRepository.getAll().forEach(function(property) {
-  document.write('<h3>==============</h3>');
-  Object.keys(property).forEach(function(currentItem) {
-    document.write('<p>' + currentItem + ': ' + property[currentItem] + '</p>');
-  })
+pokemonRepository.getAll().forEach(function(pokemon) {
+  pokemonRepository.addListItem(pokemon);
 });
