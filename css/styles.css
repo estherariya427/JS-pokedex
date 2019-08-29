@@ -1,0 +1,26 @@
+body {
+  padding-top: 50px;
+  text-align: center;
+}
+
+li {
+  display: block;
+}
+
+.buttonStyle {
+  margin: 0 auto;
+  padding: 25px 10px;
+  font-size: 15px;
+  width: 300px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 200px;
+  margin-bottom: 10px;
+  background-color: #DCDCDC;
+  border: none;
+}
+
+.buttonStyle:hover {
+  background-color: #d1e6d6;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
