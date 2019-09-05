@@ -57,12 +57,64 @@ var pokemonRepository = (function () {
       showDetails(pokemon);
     });
   }
+  var $modalContainer = document.querySelector('#modal-container');
+  function showModal(title, text, image) {
+
+    $modalContainer.classList.add('is-visible');
+
+    // Clear all existing modal content
+    $modalContainer.innerHTML = '';
+
+    var modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    // Add the new modal content: Name, height, and image
+    var closeButtonElement = document.createElement('button');
+    closeButtonElement.classList.add('modal-close');
+    closeButtonElement.innerText = 'Close';
+    closeButtonElement.addEventListener('click', hideModal);
+
+    var titleElement = document.createElement('h1');
+    titleElement.innerText = title;
+
+    var contentElement = document.createElement('p');
+    contentElement.innerText = 'height: ' + text;
+
+    var imageElement = document.createElement('img');
+    imageElement.src = image;
+    imageElement.classList.add('myImage');
+
+    modal.appendChild(closeButtonElement);
+    modal.appendChild(titleElement);
+    modal.appendChild(contentElement);
+    modal.appendChild(imageElement);
+    $modalContainer.appendChild(modal);
+
+    $modalContainer.classList.add('is-visible');
+  }
+
+  function hideModal() {
+    $modalContainer.classList.remove('is-visible');
+  }
 
   function showDetails(item) {
     pokemonRepository.loadDetails(item).then(function () {
-      console.log(item);
+      showModal(item.name, item.height, item.imgUrl);
     });
   }
+
+  window.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && $modalContainer.classList.contains('is-visible')) {
+      hideModal();
+    }
+  });
+
+  $modalContainer.addEventListener('click', (e) => {
+    var target = e.target;
+    if (target === $modalContainer) {
+      hideModal();
+    }
+  });
 
   return {
     add: add,
@@ -70,7 +122,9 @@ var pokemonRepository = (function () {
     addListItem: addListItem,
     showDetails: showDetails,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    showModal: showModal,
+    hideModal: hideModal
   };
 })();
 
